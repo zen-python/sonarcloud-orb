@@ -35,7 +35,7 @@ workflows:
           requires: [orb-tools/publish-dev]
       - orb-tools/publish:
           context: Publishing Orb
-          orb-ref: sonarcloud-orb/sonarcloud-alt@1.0.2
+          orb-ref: sonarcloud-orb/sonarcloud-alt@1.0.3
           attach-workspace: true
           requires: [test-node, test-circleci-python]
           filters:
