@@ -11,7 +11,6 @@ jobs:
       - image: <<parameters.image>>:latest
     steps:
       - checkout
-      - sonarcloud-alt/scan
 workflows:
   publish-dev:
     jobs:
