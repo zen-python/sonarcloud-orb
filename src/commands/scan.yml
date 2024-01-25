@@ -45,7 +45,7 @@ steps:
         cd <<parameters.project_root>>
         $SCANNER_DIRECTORY/sonar-scanner-$VERSION-$OS/bin/sonar-scanner
       environment:
-        SONARQUBE_SCANNER_PARAMS: '$<<parameters.sonar_token_variable_name>>'
+        SONARQUBE_SCANNER_PARAMS: '$<<parameters.sonar_extra>>'
   - save_cache:
       key: v<<parameters.cache_version>>-sonarcloud-scanner-5.0.1.3006
       paths: /tmp/cache/scanner
