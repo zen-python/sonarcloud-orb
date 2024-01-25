@@ -15,7 +15,7 @@ workflows:
   publish-dev:
     jobs:
       - orb-tools/pack:
-          source-dir: src/main
+          source-dir: src/
           destination-orb-path: orb.yml
           workspace-path: orb.yml
           artifact-path: orb.yml
