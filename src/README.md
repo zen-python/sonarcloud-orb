@@ -1,26 +1,31 @@
-# Orb Source
+# sonarcloud-circleci-orb
+Support of SonarScanner CLI in CircleCI
 
-Orbs are shipped as individual `orb.yml` files, however, to make development easier, it is possible to author an orb in _unpacked_ form, which can be _packed_ with the CircleCI CLI and published.
+## SonarCloud Orb
+The SonarCloud Orb can be used with any linux based docker image that includes the command line tools `curl` and `unzip`.
 
-The default `.circleci/config.yml` file contains the configuration code needed to automatically pack, test, and deploy any changes made to the contents of the orb source in this directory.
+To connect to your SonarCloud project on `sonarcloud.io` you need to setup an api token. We recommend to setup a CircleCI context in your organization named `sonarcloud` that contains a variable with key `SONAR_TOKEN` and the api token as the value.
+### Usage examples
+```yaml
+version: 2.1
+orbs:
+  sonarcloud: sonarcloud-orb/sonarcloud-alt@1.0.0
+jobs:
+  build:
+    docker:
+      - image: 'circleci/python:3.7.4'
+    steps:
+    - checkout
+    - sonarcloud/scan
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context: sonarcloud
+```
 
-## @orb.yml
+### Publishing a new version
+To publish a new version of the orb you need to change the version found in .circleci/config.yml to the new version. The CirceCI build pipeline will then publish the new version of the orb.
 
-This is the entry point for our orb "tree", which becomes our `orb.yml` file later.
-
-Within the `@orb.yml` we generally specify 4 configuration keys
-
-**Keys**
-
-1. **version**
-    Specify version 2.1 for orb-compatible configuration `version: 2.1`
-2. **description**
-    Give your orb a description. Shown within the CLI and orb registry
-3. **display**
-    Specify the `home_url` referencing documentation or product URL, and `source_url` linking to the orb's source repository.
-4. **orbs**
-    (optional) Some orbs may depend on other orbs. Import them here.
-
-## See:
- - [Orb Author Intro](https://circleci.com/docs/2.0/orb-author-intro/#section=configuration)
- - [Reusable Configuration](https://circleci.com/docs/2.0/reusing-config)
+### Requirements
+See https://docs.sonarcloud.io/appendices/scanner-environment/

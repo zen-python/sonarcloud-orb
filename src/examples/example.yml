@@ -1,13 +1,17 @@
-description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+description: Use the sonarcloud orb to detect bugs and vulnerabilities in your repository
 usage:
   version: 2.1
+  jobs:
+    build:
+      docker:
+        - image: node:latest
+      steps:
+      - checkout
+      - sonarcloud/scan
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    sonarcloud: sonarcloud-orb/sonarcloud-alt@1.1.0
   workflows:
-    use-my-orb:
+    main:
       jobs:
-        - <orb-name>/<job-name>
+        - build:
+            context: sonarcloud
